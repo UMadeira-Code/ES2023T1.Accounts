@@ -8,7 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Accounts.Data.Json\Accounts.Data.Json.csproj" />
+    <ProjectReference Include="..\Accounts.Data.Store\Accounts.Data.Store.csproj" />
     <ProjectReference Include="..\Accounts.Data.Xml\Accounts.Data.Xml.csproj" />
     <ProjectReference Include="..\Accounts.Data\Accounts.Data.csproj" />
   </ItemGroup>

@@ -2,6 +2,8 @@
 using Accounts.Data.Xml;
 
 using Accounts.Data.Json;
+using Accounts.Data.Store;
+using Microsoft.EntityFrameworkCore;
 
 namespace Accounts.ConsoleApp
 {
@@ -10,10 +12,26 @@ namespace Accounts.ConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Accounts v1.0");
+
+            using (var context = new AccountsContext())
+            {
+                if ( context.Organizations.Count() == 0)
+                {
+                    var organization = CreateOrganization();
+                    context.Organizations.Add(organization);
+                    context.SaveChanges();
+                }
+                else
+                {
+                   context.Organizations.Include(o => o.Users); 
+                   ShowOrganization(context.Organizations.First());
+                }
+            }
+
+
             //var organization = CreateOrganization();
 
-            var organization = Data.Json.Serializer.Load("data.json");
-            ShowOrganization( organization );
+//            var organization = Data.Json.Serializer.Load("data.json");
 //            Data.Json.Serializer.Save(organization, "data.json");
 
 

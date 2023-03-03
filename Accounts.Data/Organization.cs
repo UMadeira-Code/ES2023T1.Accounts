@@ -1,9 +1,9 @@
 ﻿namespace Accounts.Data
 {
-    public class Organization
+    public class Organization : Item
     {
         public string Name { get; set; } = string.Empty;
 
-        public List<User> Users { get; set; } = new List<User>();
+        public virtual List<User> Users { get; set; } = new List<User>();
     }
 }
