@@ -13,31 +13,61 @@ namespace Accounts.ConsoleApp
         {
             Console.WriteLine("Accounts v1.0");
 
+            Console.WriteLine();
+            Console.WriteLine("Using XML...");
+            UsindJson();
+
+            Console.WriteLine();
+            Console.WriteLine("Using Json...");
+            UsingXml();
+
+            Console.WriteLine();
+            Console.WriteLine("Using Entity Framework...");
+            UsingEntityFramework();
+        }
+
+        static void UsingEntityFramework()
+        {
             using (var context = new AccountsContext())
             {
-                if ( context.Organizations.Count() == 0)
+                context.Database.EnsureCreated();
+
+                // Custom Seeding the Database 
+                if (context.Organizations.Count() == 0)
                 {
-                    var organization = CreateOrganization();
-                    context.Organizations.Add(organization);
+                    context.Organizations.Add(CreateOrganization());
                     context.SaveChanges();
                 }
-                else
-                {
-                   context.Organizations.Include(o => o.Users); 
-                   ShowOrganization(context.Organizations.First());
-                }
+
+                var organization = context.Organizations.Include(e => e.Users).First();
+                ShowOrganization( organization );
+            }
+        }
+
+        static void UsingXml()
+        {
+            if ( ! File.Exists("data.xml") )
+            {
+                Data.Xml.Serializer.Save(CreateOrganization(), "data.xml" );
             }
 
-
-            //var organization = CreateOrganization();
-
-//            var organization = Data.Json.Serializer.Load("data.json");
-//            Data.Json.Serializer.Save(organization, "data.json");
+            var organization = Data.Json.Serializer.Load("data.json");
+            ShowOrganization(organization);
 
 
             //Serializer.Save("data.xml", organization);
             //organization.Save("accounts.xml");
-            
+        }
+
+        static void UsindJson()
+        {
+            if (!File.Exists("data.json"))
+            {
+                Data.Json.Serializer.Save(CreateOrganization(), "data.json");
+            }
+
+            var organization = Data.Json.Serializer.Load("data.json");
+            ShowOrganization(organization);
         }
 
         static Organization CreateOrganization()

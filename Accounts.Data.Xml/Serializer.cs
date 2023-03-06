@@ -4,6 +4,8 @@ namespace Accounts.Data.Xml
 {
     public static class Serializer
     {
+
+
         public static void Save( this Organization organization, string filename )
         {
             var formater = new XmlSerializer(typeof(Organization));
