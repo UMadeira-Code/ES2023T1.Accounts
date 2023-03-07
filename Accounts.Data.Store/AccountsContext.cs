@@ -12,8 +12,8 @@ namespace Accounts.Data.Store
         protected override void OnConfiguring( DbContextOptionsBuilder builder )
         {
             builder
-                .LogTo( message => Console.WriteLine( $"-----\n{message}\n-----" ) , LogLevel.Information )
                 .UseLazyLoadingProxies()
+                .LogTo(message => Console.WriteLine($"-----\n{message}\n-----"), LogLevel.Information)
                 .UseSqlServer( @"data source=(LocalDb)\MSSQLLocalDB;" +
                                   @"initial catalog=Accounts2023T1;" +
                                   @"integrated security=True" );
