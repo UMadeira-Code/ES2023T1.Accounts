@@ -13,13 +13,13 @@ namespace Accounts.ConsoleApp
         {
             Console.WriteLine("Accounts v1.0");
 
-            Console.WriteLine();
-            Console.WriteLine("Using XML...");
-            UsindJson();
+            //Console.WriteLine();
+            //Console.WriteLine("Using XML...");
+            //UsindJson();
 
-            Console.WriteLine();
-            Console.WriteLine("Using Json...");
-            UsingXml();
+            //Console.WriteLine();
+            //Console.WriteLine("Using Json...");
+            //UsingXml();
 
             Console.WriteLine();
             Console.WriteLine("Using Entity Framework...");
@@ -39,7 +39,8 @@ namespace Accounts.ConsoleApp
                     context.SaveChanges();
                 }
 
-                var organization = context.Organizations.Include(e => e.Users).First();
+//                var organization = context.Organizations.Include(e => e.Users).First();
+                var organization = context.Organizations.First();
                 ShowOrganization( organization );
             }
         }
@@ -84,6 +85,7 @@ namespace Accounts.ConsoleApp
 
         static void ShowOrganization( Organization organization )
         {
+            Console.WriteLine();
             Console.WriteLine($"Organization: {organization.Name}");
             foreach ( var user in organization.Users )
             {

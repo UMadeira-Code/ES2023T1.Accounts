@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Accounts.Data.Store
 {
@@ -10,7 +11,10 @@ namespace Accounts.Data.Store
 
         protected override void OnConfiguring( DbContextOptionsBuilder builder )
         {
-            builder.UseSqlServer( @"data source=(LocalDb)\MSSQLLocalDB;" +
+            builder
+                .LogTo( message => Console.WriteLine( $"-----\n{message}\n-----" ) , LogLevel.Information )
+                .UseLazyLoadingProxies()
+                .UseSqlServer( @"data source=(LocalDb)\MSSQLLocalDB;" +
                                   @"initial catalog=Accounts2023T1;" +
                                   @"integrated security=True" );
         }
